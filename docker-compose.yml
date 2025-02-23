@@ -8,6 +8,8 @@ services:
       - 4200:80
     networks:
       - app-network
+    depends_on:
+      - backend
 
   backend:
     container_name: kanban-app
@@ -15,11 +17,14 @@ services:
     ports:
       - 8080:8080
     environment:
+      DB_SERVER: kanban-postgres
       POSTGRES_DB: kanban
       POSTGRES_USER: kanban
       POSTGRES_PASSWORD: kanban
     networks:
       - app-network
+    depends_on:
+      - kanban
 
   db:
     image: "postgres:9.6-alpine"
