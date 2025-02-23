@@ -1,24 +1,24 @@
-service:
+services:
   frontend: kanban-ui
   build: ./kanban-ui
   ports:
     - 4200:80
   network:
-    - app-network
+     - app-network
 
- service:
-  backend: kanban-app
-  build: ./kanban-app
-  ports:
+
+backend:  kanban-app
+build: ./kanban-app
+ports:
    - 8080:8080
-  environment:
+network:
+    - app-network
+environment:
     - POSTGRES_DB: kanban
     - POSTGRES_USER: kanban
     - POSTGRES_PASSWORD: kanban
-  network:
-    - app-network
- service:
-  kanban-postgres:
+
+kanban-postgres:
     image: "postgres:9.6-alpine"
     container_name: kanban-postgres
     volumes:
@@ -32,6 +32,7 @@ service:
         network:
           - app-network
 
-
+networks:
+  driver: bridge
 
 
