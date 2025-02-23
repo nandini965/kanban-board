@@ -2,7 +2,7 @@ services:
   frontend: kanban-ui
   build: ./kanban-ui
   ports:
-    - 4200:80
+    - "4200:80"
   network:
      - app-network
 
@@ -10,7 +10,7 @@ services:
 backend:  kanban-app
 build: ./kanban-app
 ports:
-   - 8080:8080
+   - "8080:8080"
 network:
     - app-network
 environment:
@@ -24,7 +24,7 @@ kanban-postgres:
     volumes:
       - kanban-data: /var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_DB: kanban
       - POSTGRES_USER: kanban
