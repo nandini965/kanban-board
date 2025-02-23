@@ -32,7 +32,3 @@ kanban-postgres:
         network:
           - app-network
 
-networks:
-  driver: bridge
-
-
