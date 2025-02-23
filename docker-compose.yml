@@ -19,16 +19,17 @@ backend:
         - POSTGRES_PASSWORD: kanban
           network:
             - app-network
-kanban-postgres:
+db:
+  kanban-postgres:
     image: "postgres:9.6-alpine"
     volumes:
-      - kanban-data: /var/lib/postgresql/data
+        - kanban-data: /var/lib/postgresql/data
     ports:
-      - "5432:5432"
+        - "5432:5432"
     environment:
-      - POSTGRES_DB: kanban
-      - POSTGRES_USER: kanban
-      - POSTGRES_PASSWORD: kanban
-        network:
-          - app-network
+        - POSTGRES_DB: kanban
+        - POSTGRES_USER: kanban
+        - POSTGRES_PASSWORD: kanban
+          network:
+            - app-network
 
