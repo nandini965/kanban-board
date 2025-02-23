@@ -6,7 +6,7 @@ services:
       context: ./kanban-ui
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "4200:80"
     networks:
       - app-network
 
