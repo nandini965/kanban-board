@@ -1,33 +1,43 @@
+version: "3.8"
+
 services:
   frontend:
     build:
       context: ./kanban-ui
       dockerfile: Dockerfile
     ports:
-      - "4200:80"
-    network:
+      - "8080:8080"
+    networks:
       - app-network
-    backend:
-      build:
-        context: ./kanban-app
-        dockerfile: Dockerfile
-      ports:
-        - "8080:8080"
-      environment:
-        POSTGRES_DB: kanban
-        POSTGRES_USER: kanban
-        POSTGRES_PASSWORD: kanban
-        networks:
-          - app-network
-      db:
-        image: "postgres:9.6-alpine"
-        ports:
-          - "5432:5432"
-        environment:
-          POSTGRES_DB: kanban
-          POSTGRES_USER: kanban
-          POSTGRES_PASSWORD: kanban
-          networks:
-            - app-network
+
+  backend:
+    build:
+      context: ./kanban-app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      POSTGRES_DB: kanban
+      POSTGRES_USER: kanban
+      POSTGRES_PASSWORD: kanban
+    networks:
+      - app-network
+
+  db:
+    image: "postgres:9.6-alpine"
+    volumes:
+      - kanban-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: kanban
+      POSTGRES_USER: kanban
+      POSTGRES_PASSWORD: kanban
+    networks:
+      - app-network
+
 networks:
   app-network:
+
+volumes:
+  kanban-data:
