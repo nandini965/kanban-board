@@ -6,7 +6,7 @@ spec:
   type: NodePort
   ports:
     - port: 4200
-      targetPort: 4200kubectl get pods
+      targetPort: 4200
 
   selector:
     app: kanban-ui
@@ -17,11 +17,13 @@ kind: Service
 metadata:
   name: kanban-app
 spec:
-  ports:
-    - port: 8080
-      targetPort: 8080
   selector:
     app: kanban-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
 
 ---
 apiVersion: v1
@@ -29,8 +31,9 @@ kind: Service
 metadata:
   name: kanban-postgres
 spec:
-  ports:
-    - port: 5432
-      targetPort: 5432
   selector:
     app: kanban-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
