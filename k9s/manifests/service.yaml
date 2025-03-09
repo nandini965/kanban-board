@@ -6,7 +6,8 @@ spec:
   type: NodePort
   ports:
     - port: 4200
-      targetPort: 4200
+      targetPort: 4200kubectl get pods
+
   selector:
     app: kanban-ui
 
