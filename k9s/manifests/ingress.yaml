@@ -6,10 +6,17 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
-
   rules:
-    - http:
+    - host: kanban.local  # Change this based on your domain or leave it as is
+      http:
         paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kanban-ui
+                port:
+                  number: 80
           - path: /api
             pathType: Prefix
             backend:
