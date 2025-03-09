@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kanban-ui
+  labels:
+    app: kanban-ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kanban-ui
+  template:
+    metadata:
+      labels:
+        app: kanban-ui
+    spec:
+      containers:
+        - name: kanban-ui
+          image: nandini965/kanban-ui
+          ports:
+            - containerPort: 4200
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kanban-app-deployment
+  labels:
+    app: kanban-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kanban-app
+  template:
+    metadata:
+      labels:
+        app: kanban-app
+    spec:
+      containers:
+        - name: nginx
+          image: nandini965/kanban-app
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    app: kanban-postgres
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kanban-postgres
+  template:
+    metadata:
+      labels:
+        app: kanban-postgres
+    spec:
+      containers:
+        - name: kanban-postgres
+          image: postgres:9.6-alpine
+          ports:
+            - containerPort: 5432

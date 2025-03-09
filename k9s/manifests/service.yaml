@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kanban-ui
+spec:
+  type: NodePort
+  ports:
+    - port: 4200
+      targetPort: 80
+      nodePort: 30080  # Or any available port between 30000-32767
+  selector:
+    app: kanban-ui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kanban-app
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: kanban-app
+---
+apiVersion: v1
+kind: postgres-sql
+metadata:
+  name: postgres-sql
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres-sql
