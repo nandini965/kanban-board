@@ -21,6 +21,13 @@ spec:
       targetPort: 8080
   selector:
     app: kanban-app
+    env:
+      - name: POSTGRES_USER
+        value: kanban
+      - name: POSTGRES_DB
+        value: kanban
+      - name: POSTGRES_PASSWORD
+        value: kanban
 ---
 apiVersion: v1
 kind: service
@@ -32,3 +39,10 @@ spec:
       targetPort: 5432
   selector:
     app: kanban-postgres
+    env:
+      - name: POSTGRES_USER
+        value: kanban
+      - name: POSTGRES_DB
+        value: kanban
+      - name: POSTGRES_PASSWORD
+        value: kanban
