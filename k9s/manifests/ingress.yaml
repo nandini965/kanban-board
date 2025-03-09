@@ -13,6 +13,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: kanban-app
+                name: kanban-ui
                 port:
-                  number: 8080
+                  number: 80  # Change this if your UI runs on a different port
