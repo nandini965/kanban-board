@@ -1,10 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kanban-board-ingress
+  name: kanban-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
+  ingressClassName: nginx
   rules:
     - host: kanban.local
       http:
@@ -15,4 +16,11 @@ spec:
               service:
                 name: kanban-ui
                 port:
-                  number: 80  # Change this if your UI runs on a different port
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: kanban-app
+                port:
+                  number: 8080
