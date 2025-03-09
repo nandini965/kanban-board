@@ -67,7 +67,7 @@ spec:
     spec:
       containers:
         - name: kanban-postgres
-          image: postgres:9.6-alpine:latest
+          image: postgres:9.6-alpine
           ports:
             - containerPort: 5432
           env:
