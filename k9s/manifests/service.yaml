@@ -6,10 +6,11 @@ spec:
   type: NodePort
   ports:
     - port: 4200
-      targetPort: 80
-     # nodePort: 30080  # Or any available port between 30000-32767
+      targetPort: 4200
+      nodePort: 30080  # Optional, must be between 30000-32767
   selector:
     app: kanban-ui
+
 ---
 apiVersion: v1
 kind: Service
@@ -21,16 +22,10 @@ spec:
       targetPort: 8080
   selector:
     app: kanban-app
-    env:
-      - name: POSTGRES_USER
-        value: kanban
-      - name: POSTGRES_DB
-        value: kanban
-      - name: POSTGRES_PASSWORD
-        value: kanban
+
 ---
 apiVersion: v1
-kind: service
+kind: Service
 metadata:
   name: kanban-postgres
 spec:
@@ -39,10 +34,3 @@ spec:
       targetPort: 5432
   selector:
     app: kanban-postgres
-    env:
-      - name: POSTGRES_USER
-        value: kanban
-      - name: POSTGRES_DB
-        value: kanban
-      - name: POSTGRES_PASSWORD
-        value: kanban

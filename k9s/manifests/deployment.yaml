@@ -19,6 +19,7 @@ spec:
           image: nandini965/kanban-ui:latest
           ports:
             - containerPort: 4200
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -37,18 +38,17 @@ spec:
         app: kanban-app
     spec:
       containers:
-        - name: nginx
+        - name: kanban-app
           image: nandini965/kanban-app:latest
           ports:
             - containerPort: 8080
-    env:
-      - name: POSTGRES_USER
-        value: kanban
-      - name: POSTGRES_DB
-        value: kanban
-      - name: POSTGRES_PASSWORD
-        value: kanban
-
+          env:
+            - name: POSTGRES_USER
+              value: kanban
+            - name: POSTGRES_DB
+              value: kanban
+            - name: POSTGRES_PASSWORD
+              value: kanban
 
 ---
 apiVersion: apps/v1
@@ -58,7 +58,7 @@ metadata:
   labels:
     app: kanban-postgres
 spec:
-  replicas: 3
+  replicas: 1  # Usually, a single instance of PostgreSQL is enough unless using replication
   selector:
     matchLabels:
       app: kanban-postgres
@@ -72,12 +72,10 @@ spec:
           image: postgres:9.6-alpine
           ports:
             - containerPort: 5432
-      env:
-        - name: POSTGRES_USER
-          value: kanban
-        - name: POSTGRES_DB
-          value: kanban
-        - name: POSTGRES_PASSWORD
-          value: kanban
-
-
+          env:
+            - name: POSTGRES_USER
+              value: kanban
+            - name: POSTGRES_DB
+              value: kanban
+            - name: POSTGRES_PASSWORD
+              value: kanban
