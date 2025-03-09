@@ -23,12 +23,12 @@ spec:
     app: kanban-app
 ---
 apiVersion: v1
-kind: postgres-sql
+kind: service
 metadata:
-  name: postgres-sql
+  name: kanban-postgres
 spec:
   ports:
     - port: 5432
       targetPort: 5432
   selector:
-    app: postgres-sql
+    app: kanban-postgres
