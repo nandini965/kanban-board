@@ -1,3 +1,5 @@
+
+# kanban-ui Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,9 +20,10 @@ spec:
         - name: kanban-ui
           image: nandini965/kanban-ui:latest
           ports:
-            - containerPort: 4200
+            - containerPort: 80
 
 ---
+# kanban-app Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,12 +54,13 @@ spec:
               value: "kanban"
 
 ---
+# kanban-postgres Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kanban-postgres
 spec:
-  replicas: 3
+  replicas: 1  # Single replica to avoid data loss
   selector:
     matchLabels:
       app: kanban-postgres

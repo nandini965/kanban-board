@@ -1,3 +1,4 @@
+# kanban-ui Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,12 +7,13 @@ spec:
   type: NodePort
   ports:
     - port: 80
-      targetPort: 4200
-
+      targetPort: 80
+      nodePort: 31978  # Optional: Define a fixed NodePort
   selector:
     app: kanban-ui
 
 ---
+# kanban-app Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -24,7 +26,6 @@ spec:
       port: 8080
       targetPort: 8080
   type: ClusterIP
-
 ---
 apiVersion: v1
 kind: Service
