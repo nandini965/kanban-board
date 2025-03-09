@@ -13,13 +13,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: kanban-ui
-                port:
-                  number: 80
-          - path: /api/
-            pathType: ImplementationSpecific
-            backend:
-              service:
                 name: kanban-app
                 port:
                   number: 8080
