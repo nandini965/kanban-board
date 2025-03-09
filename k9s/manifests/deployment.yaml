@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: kanban-ui
-          image: nandini965/kanban-ui
+          image: nandini965/kanban-ui:latest
           ports:
             - containerPort: 4200
 ---
@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nandini965/kanban-app
+          image: nandini965/kanban-app:latest
           ports:
             - containerPort: 8080
 ---
