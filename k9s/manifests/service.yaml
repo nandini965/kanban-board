@@ -7,7 +7,7 @@ spec:
   ports:
     - port: 4200
       targetPort: 80
-      nodePort: 30080  # Or any available port between 30000-32767
+     # nodePort: 30080  # Or any available port between 30000-32767
   selector:
     app: kanban-ui
 ---
