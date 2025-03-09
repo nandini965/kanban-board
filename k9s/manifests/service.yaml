@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: kanban-ui
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 80
       targetPort: 80
@@ -13,20 +13,7 @@ spec:
     app: kanban-ui
 
 ---
-# kanban-app Service
-apiVersion: v1
-kind: Service
-metadata:
-  name: kanban-app
-spec:
-  selector:
-    app: kanban-app
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
-  type: ClusterIP
----
+
 apiVersion: v1
 kind: Service
 metadata:
