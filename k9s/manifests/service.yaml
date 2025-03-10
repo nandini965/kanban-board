@@ -6,9 +6,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 80git
+    - port: 80
       targetPort: 80
-      nodePort: 30080  # Optional: Define a fixed NodePort
+      nodePort: 30080 # Optional: Define a fixed NodePort
   selector:
     app: kanban-ui
 ---
