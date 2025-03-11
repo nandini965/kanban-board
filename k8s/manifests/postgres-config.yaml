@@ -8,3 +8,4 @@ data:
   POSTGRES_DB: kanban
   POSTGRES_USER: kanban
   POSTGRES_PASSWORD: kanban
+  DB_SERVER: postgres
