@@ -1,4 +1,4 @@
-
+---
 # kanban-ui Deployment
 apiVersion: apps/v1
 kind: Deployment
@@ -21,9 +21,8 @@ spec:
           image: nandini965/kanban-ui:latest
           ports:
             - containerPort: 80
-
 ---
-# kanban-app Deployment
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -38,13 +37,17 @@ spec:
       labels:
         app: kanban-app
     spec:
+      initContainers:
+        - name: wait-for-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -zv kanban-postgres 5432; do echo "Waiting for Postgres..."; sleep 2; done']
       containers:
         - name: kanban-app
           image: nandini965/kanban-app:latest
           ports:
             - containerPort: 8080
           env:
-            - name: DB_HOST
+            - name: DB_SERVER
               value: "kanban-postgres.default.svc.cluster.local"
             - name: POSTGRES_DB
               value: "kanban"
@@ -54,13 +57,13 @@ spec:
               value: "kanban"
 
 ---
-# kanban-postgres Deployment
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kanban-postgres
 spec:
-  replicas: 1  # Single replica to avoid data loss
+  replicas: 1
   selector:
     matchLabels:
       app: kanban-postgres
@@ -81,3 +84,8 @@ spec:
               value: "kanban"
             - name: POSTGRES_PASSWORD
               value: "kanban"
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "kanban"]
+            initialDelaySeconds: 10
+            periodSeconds: 5

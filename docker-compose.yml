@@ -23,9 +23,7 @@ services:
       POSTGRES_PASSWORD: kanban
     networks:
       - app-network
-    depends_on:
-      - kanban-postgres
-
+    c
   kanban-postgres:
     image: "postgres:9.6-alpine"
     container_name: kanban-postgres
