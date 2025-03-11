@@ -17,9 +17,9 @@ spec:
           image: postgres:9.6-alpine
           ports:
             - containerPort: 5432
-      envFrom:
-        - configMapRef:
-            name: postgres-config
+          envFrom:
+            - configMapRef:
+                name: postgres-config
           readinessProbe:
             exec:
               command: ["pg_isready", "-U", "kanban"]
@@ -59,9 +59,10 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_SERVER
-              value: postgres
+              value: kanban-postgres  # Corrected the value to match the service name
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
