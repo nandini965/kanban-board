@@ -60,7 +60,7 @@ spec:
         - name: kanban-app
           image: nandini965/kanban-app:latest
           ports:
-              containerPort: 8080
+            - containerPort: 8080
           env:
             - name: DB-SERVER
               value: "kanban-postgres.default.svc.cluster.local"
