@@ -94,3 +94,6 @@ spec:
           image: nandini965/kanban-ui:latest
           ports:
             - containerPort: 80
+          env:
+            - name: REACT_APP_API_URL
+              value: "http://kanban-app-service:8080/api"
