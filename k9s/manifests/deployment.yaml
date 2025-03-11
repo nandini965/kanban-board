@@ -45,7 +45,8 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_SERVER
-              value: "backend-postgres.default.svc.cluster.local"
+              value: "git pull
+              kanban-postgres.default.svc.cluster.local"
             - name: POSTGRES_DB
               value: "kanban"
             - name: POSTGRES_USER
