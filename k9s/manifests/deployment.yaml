@@ -17,9 +17,13 @@ spec:
           image: postgres:9.6-alpine
           ports:
             - containerPort: 5432
-          envFrom:
-            - configMapRef:
-                name: postgres-config
+          env:
+            - name: POSTGRES_DB
+              value: kanban
+            - name: POSTGRES_USER
+              value: kanban
+            - name: POSTGRES_PASSWORD
+              value: kanban
           readinessProbe:
             exec:
               command: ["pg_isready", "-U", "kanban"]
