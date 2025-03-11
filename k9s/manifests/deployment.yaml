@@ -59,8 +59,7 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_SERVER
-              value: kanban-postgres  # Corrected the value to match the service name
-
+              value: "kanban-postgres.default.svc.cluster.local"
 ---
 
 apiVersion: apps/v1
