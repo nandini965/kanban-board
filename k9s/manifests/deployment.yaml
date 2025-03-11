@@ -30,6 +30,12 @@ spec:
               command: ["pg_isready", "-U", "kanban"]
             initialDelaySeconds: 10
             periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: [ "pg_isready", "-U", "kanban" ]
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 3
 ---
 
 apiVersion: apps/v1
@@ -54,7 +60,7 @@ spec:
         - name: kanban-app
           image: nandini965/kanban-app:latest
           ports:
-            - containerPort: 8080
+              containerPort: 8080
           env:
             - name: DB-SERVER
               value: "kanban-postgres.default.svc.cluster.local"
