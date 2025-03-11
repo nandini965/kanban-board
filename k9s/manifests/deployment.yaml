@@ -38,6 +38,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kanban-app
+  namespace: default
 spec:
   replicas: 3
   selector:
@@ -48,18 +49,28 @@ spec:
       labels:
         app: kanban-app
     spec:
-      initContainers:
-        - name: wait-for-db
-          image: busybox
-          command: ['sh', '-c', 'until nc -zv kanban-postgres 5432; do echo "Waiting for Postgres..."; sleep 2; done']
       containers:
         - name: kanban-app
           image: nandini965/kanban-app:latest
+          imagePullPolicy: Always
+          env:
+            - name: DB_SERVER
+              value: kanban-postgres.default.svc.cluster.local
+            - name: POSTGRES_DB
+              value: kanban
+            - name: POSTGRES_USER
+              value: kanban
+            - name: POSTGRES_PASSWORD
+              value: kanban
           ports:
             - containerPort: 8080
-          env:
-             - name: DB_SERVER
-               value: "kanban-postgres.default.svc.cluster.local"
+              protocol: TCP
+      initContainers:
+        - name: wait-for-db
+          image: busybox
+          imagePullPolicy: Always
+          command: ['sh', '-c', 'until nc -zv kanban-postgres 5432; do echo "Waiting for Backend..."; sleep 2; done']
+
 ---
 
 apiVersion: apps/v1
