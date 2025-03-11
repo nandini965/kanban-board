@@ -17,13 +17,9 @@ spec:
           image: postgres:9.6-alpine
           ports:
             - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: "kanban"
-            - name: POSTGRES_USER
-              value: "kanban"
-            - name: POSTGRES_PASSWORD
-              value: "kanban"
+      envFrom:
+        - configMapRef:
+            name: postgres-config
           readinessProbe:
             exec:
               command: ["pg_isready", "-U", "kanban"]
@@ -62,14 +58,9 @@ spec:
           ports:
             - containerPort: 8080
           env:
-              - name: POSTGRES_SERVER
-                value: "kanban-postgres.default.svc.cluster.local"
-              - name: POSTGRES_DB
-                value: "kanban"
-              - name: POSTGRES_USER
-                value: "kanban"
-              - name: POSTGRES_PASSWORD
-                value: "kanban"
+            - name: DB_SERVER
+              value: postgres
+
 ---
 apiVersion: apps/v1
 kind: Deployment
