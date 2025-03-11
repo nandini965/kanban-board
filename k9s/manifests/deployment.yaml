@@ -56,7 +56,6 @@ spec:
       containers:
         - name: kanban-app
           image: nandini965/kanban-app:latest
-          imagePullPolicy: Always
           env:
             - name: DB_SERVER
               value: kanban-postgres.default.svc.cluster.local
@@ -94,6 +93,7 @@ spec:
       initContainers:
         - name: wait-for-app
           image: busybox
+          imagePullPolicy: Always
           command: ['sh', '-c', 'until nc -zv kanban-app 8080; do echo "Waiting for Backend..."; sleep 2; done']
       containers:
         - name: kanban-ui
