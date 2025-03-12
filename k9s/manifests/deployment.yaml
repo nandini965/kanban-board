@@ -99,8 +99,8 @@ spec:
           image: nandini965/kanban-ui:latest
           ports:
             - containerPort: 80
-          env:  # <-- Make sure this is inside the container spec
-            - name: BACKEND_API_URL
+          env:
+            - name: KANBAN_API_URL
               value: "/api/kanbans"
-            - name: BACKEND_API_URL
+            - name: TASK_API_URL
               value: "/api/tasks"
