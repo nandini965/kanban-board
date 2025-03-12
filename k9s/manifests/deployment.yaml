@@ -99,6 +99,6 @@ spec:
           image: nandini965/kanban-ui:latest
           ports:
             - containerPort: 80
-      env:
-          - name: BACKEND_API_URL
-            value: "http://kanban-app.default.svc.cluster.local:8080/api/kanbans"
+          env:  # <-- Make sure this is inside the container spec
+            - name: BACKEND_API_URL
+              value: "/api/kanbans"
