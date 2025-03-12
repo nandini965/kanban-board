@@ -101,6 +101,4 @@ spec:
             - containerPort: 80
           env:
             - name: KANBAN_API_URL
-              value: "/api/kanbans"
-            - name: TASK_API_URL
-              value: "/api/tasks"
+              value: "http://kanban-app.default.svc.cluster.local:8080/api/kanbans"
