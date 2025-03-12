@@ -99,11 +99,6 @@ spec:
           image: nandini965/kanban-ui:latest
           ports:
             - containerPort: 80
-          volumeMounts:
-            - name: nginx-config-volume
-              mountPath: /etc/nginx/conf.d/default.conf
-              subPath: default.conf
-      volumes:
-        - name: nginx-config-volume
-          configMap:
-            name: nginx-config
+      env:
+          - name: BACKEND_API_URL
+            value: "http://kanban-app.default.svc.cluster.local:8080/api/kanbans"
