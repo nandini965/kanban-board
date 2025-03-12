@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  default.conf: |
+    server {
+        listen 80;
+        server_name kanban-ui;
+        root /usr/share/nginx/html;
+        index index.html index.html;
+
+        location /api/kanbans {
+            proxy_pass http://kanban-app.default.svc.cluster.local:8080/api/kanbans;
+        }
+
+        location /api/tasks {
+            proxy_pass http://kanban-app.default.svc.cluster.local:8080/api/tasks;
+        }
+
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+    }
