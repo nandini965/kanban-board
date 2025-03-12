@@ -102,3 +102,5 @@ spec:
           env:  # <-- Make sure this is inside the container spec
             - name: BACKEND_API_URL
               value: "/api/kanbans"
+            - name: BACKEND_API_URL
+              value: "/api/tasks"
