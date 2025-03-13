@@ -12,6 +12,7 @@ spec:
       labels:
         app: kanban-postgres
     spec:
+      restartPolicy: Always  # Ensures the pod restarts on failure
       containers:
         - name: kanban-postgres
           image: postgres:9.6-alpine
@@ -24,20 +25,9 @@ spec:
               value: kanban
             - name: POSTGRES_PASSWORD
               value: kanban
-#          readinessProbe:
-            exec:
-              command: ["pg_isready", "-U", "kanban"]
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          livenessProbe:
-            exec:
-              command: ["pg_isready", "-U", "kanban"]
-            initialDelaySeconds: 20
-            periodSeconds: 10
-            failureThreshold: 3
 
 ---
-#
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
