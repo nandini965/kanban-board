@@ -81,9 +81,5 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: REACT_APP_KANBAN_TITLE
-              value: "My Kanban Dashboard"
-            - name: KANBAN_API_URL
-              value: "/api/kanbans"
             - name: REACT_APP_API_URL
-              value: "http://kanban-app:8080"  # ✅ Add this line to ensure frontend connects to backend
+              value: kanban-app.default.svc.cluster.local
