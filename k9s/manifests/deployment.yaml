@@ -81,5 +81,5 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: REACT_APP_API_URL
+            - name: KANBAN_APP_API_URL
               value: "kanban-app.default.svc.cluster.local"
