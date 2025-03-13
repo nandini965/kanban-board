@@ -48,13 +48,13 @@ spec:
           image: nandini965/kanban-app:latest
           env:
             - name: DB_SERVER
-              value: kanban-postgres.default.svc.cluster.local
+              value: "kanban-postgres.default.svc.cluster.local"
             - name: POSTGRES_DB
-              value: kanban
+              value: "kanban"
             - name: POSTGRES_USER
-              value: kanban
+              value: "kanban"
             - name: POSTGRES_PASSWORD
-              value: kanban
+              value: "kanban"
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -82,4 +82,4 @@ spec:
             - containerPort: 80
           env:
             - name: REACT_APP_API_URL
-              value: kanban-app.default.svc.cluster.local
+              value: "kanban-app.default.svc.cluster.local"
