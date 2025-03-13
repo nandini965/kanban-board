@@ -82,7 +82,7 @@ spec:
             - containerPort: 80
           env:
             - name: KANBAN_APP_API_URL
-              value: /api/kanbans/
+              value: /api/kanbans
 
 
 
