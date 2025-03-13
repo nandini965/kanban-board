@@ -85,3 +85,5 @@ spec:
               value: "My Kanban Dashboard"
             - name: KANBAN_API_URL
               value: "/api/kanbans"
+            - name: REACT_APP_API_URL
+              value: "http://kanban-app:8080"  # ✅ Add this line to ensure frontend connects to backend
