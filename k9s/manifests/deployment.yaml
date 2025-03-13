@@ -24,81 +24,75 @@ spec:
               value: kanban
             - name: POSTGRES_PASSWORD
               value: kanban
-          readinessProbe:
-            exec:
-              command: ["pg_isready", "-U", "kanban"]
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          livenessProbe:
-            exec:
-              command: ["pg_isready", "-U", "kanban"]
-            initialDelaySeconds: 20
-            periodSeconds: 10
-            failureThreshold: 3
+#          readinessProbe:
+#            exec:
+#              command: ["pg_isready", "-U", "kanban"]
+#            initialDelaySeconds: 10
+#            periodSeconds: 5
+#          livenessProbe:
+#            exec:
+#              command: ["pg_isready", "-U", "kanban"]
+#            initialDelaySeconds: 20
+#            periodSeconds: 10
+#            failureThreshold: 3
 
----
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kanban-app
-  namespace: default
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: kanban-app
-  template:
-    metadata:
-      labels:
-        app: kanban-app
-    spec:
-      containers:
-        - name: kanban-app
-          image: nandini965/kanban-app:latest
-          env:
-            - name: DB_SERVER
-              value: kanban-postgres.default.svc.cluster.local
-            - name: POSTGRES_DB
-              value: kanban
-            - name: POSTGRES_USER
-              value: kanban
-            - name: POSTGRES_PASSWORD
-              value: kanban
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-      initContainers:
-        - name: wait-for-db
-          image: busybox
-          imagePullPolicy: Always
-          command: ['sh', '-c', 'until nc -zv kanban-postgres 5432; do echo "Waiting for Backend..."; sleep 2; done']
+#
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: kanban-app
+#  namespace: default
+#spec:
+#  replicas: 3
+#  selector:
+#    matchLabels:
+#      app: kanban-app
+#  template:
+#    metadata:
+#      labels:
+#        app: kanban-app
+#    spec:
+#      containers:
+#        - name: kanban-app
+#          image: nandini965/kanban-app:latest
+#          env:
+#            - name: DB_SERVER
+#              value: kanban-postgres.default.svc.cluster.local
+#            - name: POSTGRES_DB
+#              value: kanban
+#            - name: POSTGRES_USER
+#              value: kanban
+#            - name: POSTGRES_PASSWORD
+#              value: kanban
+#          ports:
+#            - containerPort: 8080
+#              protocol: TCP
+#      initContainers:
+#        - name: wait-for-db
+#          image: busybox
+#          imagePullPolicy: Always
+#          command: ['sh', '-c', 'until nc -zv kanban-postgres 5432; do echo "Waiting for Backend..."; sleep 2; done']
 
----
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kanban-ui
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: kanban-ui
-  template:
-    metadata:
-      labels:
-        app: kanban-ui
-    spec:
-      initContainers:
-        - name: wait-for-app
-          image: busybox
-          command: ['sh', '-c', 'until nc -zv kanban-app 8080; do echo "Waiting for Backend..."; sleep 2; done']
-      containers:
-        - name: kanban-ui
-          image: nandini965/kanban-ui:latest
-          ports:
-            - containerPort: 80
-          env:
-            - name: KANBAN_API_URL
-              value: "http://kanban-app.default.svc.cluster.local:8080/api/kanbans"
+
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: kanban-ui
+#spec:
+#  replicas: 3
+#  selector:
+#    matchLabels:
+#      app: kanban-ui
+#  template:
+#    metadata:
+#      labels:
+#        app: kanban-ui
+#    spec:
+#      containers:
+#        - name: kanban-ui
+#          image: nandini965/kanban-ui:latest
+#          ports:
+#            - containerPort: 80
+#
